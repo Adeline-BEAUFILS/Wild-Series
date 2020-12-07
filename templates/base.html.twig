@@ -2,14 +2,17 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Wild Series!{% endblock %}</title>
+        <link rel="icon" type="image/png" href="smart-tv.png" />
+
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
     <body>
-        {% block navbar %}{% include '_navbar.html.twig' %}{% endblock %}
-        {% block body %}{% endblock %}
+        <header>{{ include('_navbar.html.twig')}}</header>
+        {% block body %}
+        {% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}

@@ -1,5 +1,5 @@
 <?php
-// src/Controller/DefaultController.php
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,12 +9,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="app_index")
+     * @Route("/", name="index")
      */
     public function index(): Response
     {
-        return $this->render('/index.html.twig', [
-            'bienvenue' => 'Bienvenue sur Wild Series',
+        return $this->render('index.html.twig', [
+        'website' => 'Wild Series',
         ]);
     }
 }
