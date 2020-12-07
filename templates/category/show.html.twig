@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Catégories #{{ category.name }}{% endblock %}
+
+{% block body %}
+
+<div class="media">
+    <p>Catégorie : {{ category.name }}</p>
+</div>
+
+<a href="{{ path('category_show') }}">
+    Retour à la liste des catégories
+</a>
+
+{% endblock %}

@@ -1,3 +1,12 @@
+$backgroundColor :white;
+$theme-colors: (
+    "primary": #6E2594,
+    "secondary": #808080,
+    "custom-color": #ECD444,
+    "dark": black
+    );
 body {
-    background-color: blue;
+    background-color: $backgroundColor;
 }
+// the ~ allows you to reference things in node_modules 
+@import "~bootstrap/scss/bootstrap";
