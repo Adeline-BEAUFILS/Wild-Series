@@ -10,6 +10,10 @@
     <h1 class="mt-0">{{ program.title }}</h1>
     <p>{{ program.summary }}</p>
     <p>Catégorie : {{ program.category.name }}</p>
+    {% for season in seasons %}
+      <h4><a href="{{ path('program_season_show', {seasonId: season.id, programId : program.id}) }}">Saison {{ season.number }}</a></h4>
+      <h4>{{ season.description }}</h4>
+    {% endfor %}
   </div>
 </div>
 
