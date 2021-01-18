@@ -4,10 +4,12 @@
 {% block body %}
         <h1>Toutes les séries de la catégorie {{ category.name }} : </h1>
         {% for program in programs %}
-                <h3>{{ program.id }} / <a href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a></h3>
+                <h3>{{ program.id }} / <a href="{{ path("program_show", { programId: program.id }) }}">{{ program.title }}</a></h3>
                 <p>{{ program.summary }}</p>
                 <p>Catégorie : {{ program.category.name }}</p>
         {% else %}
                 Aucune série trouvée.
         {% endfor %}
+
+        <button><a href="{{ path('program_new')}}">Ajouter une Série</a></button>
 {% endblock %}

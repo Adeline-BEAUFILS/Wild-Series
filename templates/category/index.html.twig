@@ -3,8 +3,10 @@
 {% block title %} Liste des catégories {% endblock %}
 
 {% block body %}
-    <h2>Choix des catégories :</h2>
+    <h2>Liste des catégories :</h2>
         {% for category in categories %}
                 <h4><a href="{{ path('category_show', {'categoryName': category.name})}}">{{ category.name }}</a></h4>
         {% endfor %}
+
+        <button><a href="{{ path('category_new')}}">Ajouter une Catégorie</a></button>
 {% endblock %}
