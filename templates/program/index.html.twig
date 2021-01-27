@@ -3,18 +3,22 @@
 {% block title %}All programs{% endblock %}
 
 {% block body %}
-    <h1>Tous les programmes : </h1>
+    <h1>Toutes les séries ! </h1>
     {% for program in programs %}
-    <div>
-         <h2>{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h2>
-         <p>{{ program.summary }}</p>
-         <a href="{{ path("program_show", { programId: program.id }) }}">Voir la fiche</a>
-   </div>
+        <div>
+            <h2>{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h2>
+            <p>{{ program.summary }}</p>
+            {# Lien vers la fiche de la série : #}
+            <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
+        </div>
     {% else %}
         Aucune série trouvée.
     {% endfor %}
-    <br>
-    <a href="{{ path('index') }}">
+    <p><a href="{{ path('program_new') }}">
+        Ajouter une série
+    </a></p>
+
+    <p><a href="{{ path('app_index') }}">
         Retour à l'accueil
-    </a>
+    </a></p>
 {% endblock %}

@@ -1,8 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
-{% block title %}Wild Series!{% endblock %}
 {% block body %}
+    <h1>{{ welcome }}</h1>
 
-    <h1>Welcome to {{ website }} !</h1>
-    
+    <a href="{{ path('program_index') }}">
+        Voir les séries
+    </a>
+    </br>
+    <a href="{{ path('category_index') }}">
+        Voir les catégories
+    </a>
+
 {% endblock %}

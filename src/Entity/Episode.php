@@ -18,6 +18,11 @@ class Episode
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="episodes")
+     */
+    private $season_id;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -32,14 +37,21 @@ class Episode
      */
     private $synopsis;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=season::class, inversedBy="episodes")
-     */
-    private $season;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getSeasonId(): ?Season
+    {
+        return $this->season_id;
+    }
+
+    public function setSeasonId(?Season $season_id): self
+    {
+        $this->season_id = $season_id;
+
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -74,18 +86,6 @@ class Episode
     public function setSynopsis(string $synopsis): self
     {
         $this->synopsis = $synopsis;
-
-        return $this;
-    }
-
-    public function getSeason(): ?season
-    {
-        return $this->season;
-    }
-
-    public function setSeason(?season $season): self
-    {
-        $this->season = $season;
 
         return $this;
     }

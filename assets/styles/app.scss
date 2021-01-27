@@ -1,12 +1,108 @@
-$backgroundColor :white;
 $theme-colors: (
-    "primary": #6E2594,
-    "secondary": #808080,
-    "custom-color": #ECD444,
-    "dark": black
-    );
-body {
-    background-color: $backgroundColor;
-}
-// the ~ allows you to reference things in node_modules 
+    "primary":#154360  ,
+    "secondary": #bdbdbd,
+);
+
 @import "~bootstrap/scss/bootstrap";
+
+body{
+    background-color:#CCD1D1;
+    background-size: 100%;
+    background-attachment: fixed;
+    font-family: 'Texturina', serif;
+    color:white;
+};
+.nav-link{
+    color:#154360;
+    text-shadow: 1px 1px 2px white , 0 0 1em #154360 , 0 0 0.2em #154360 ;
+}
+.navbar-nav{
+    display:flex;
+    justify-content: space-around;
+}
+
+.container-card{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.card{
+    width:30vw;
+    margin-bottom:1rem;
+    
+}
+.container-card-show{
+    display:flex;
+    justify-content: center;
+}
+.card-img-top{
+    width: 100%;
+    height: 70vh;
+}
+.countainer-category{
+    display:flex;
+    flex-direction: row;
+}
+.card-body{
+    color:#154360;
+}
+form{
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    color:white;
+    text-shadow: 1px 1px 2px #154360 , 0 0 1em #154360 , 0 0 0.2em #154360;
+}
+#inputEmail, #inputPassword{
+    width:50%;
+    text-align:center;
+    margin-bottom:1rem;
+}
+#registration_form_email, #registration_form_plainPassword{
+    width:100%;
+    text-align:center;
+    margin-bottom:1rem;
+
+}
+input, select{
+    width: 70vw;
+    display:flex;
+    justify-content: center;
+}
+.btn{
+    color:white;
+    margin-top: 0
+}
+textarea{
+    width: 80vw;
+    height:20vh;
+    display:flex;
+    justify-content: center;
+}
+.container-list {
+    display:flex;
+    justify-content: space-around;
+}
+.container-list li {
+    list-style: none;
+}
+h1, .navbar-brand{
+    color:white;
+    text-shadow: 1px 1px 2px #154360 , 0 0 1em #154360 , 0 0 0.2em #154360 ;
+    text-align:center;
+}
+.table{
+    background-color:#154360;
+    color:white;
+    a{
+        color:white;
+    }
+
+}
+.episode-index{
+    color:#154360;
+    li{
+        list-style: none;
+    }
+}

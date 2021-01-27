@@ -35,13 +35,13 @@ class Program
     private $poster;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="programs")
+     * @ORM\ManyToOne(targetEntity=Category::class , inversedBy="programs")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Season::class, mappedBy="program")
+     * @ORM\OneToMany(targetEntity=Season::class, mappedBy="program_id", orphanRemoval=true)
      */
     private $seasons;
 
@@ -115,7 +115,7 @@ class Program
     {
         if (!$this->seasons->contains($season)) {
             $this->seasons[] = $season;
-            $season->setProgram($this);
+            $season->setProgramId($this);
         }
 
         return $this;
@@ -125,8 +125,8 @@ class Program
     {
         if ($this->seasons->removeElement($season)) {
             // set the owning side to null (unless already changed)
-            if ($season->getProgram() === $this) {
-                $season->setProgram(null);
+            if ($season->getProgramId() === $this) {
+                $season->setProgramId(null);
             }
         }
 

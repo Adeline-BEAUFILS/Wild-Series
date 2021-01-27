@@ -3,10 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection; 
+use Doctrine\Common\Collections\Collection;
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
@@ -23,7 +22,6 @@ class Category
      * @ORM\Column(type="string", length=100)
      */
     private $name;
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="category")
      */
@@ -33,16 +31,14 @@ class Category
     {
         $this->programs = new ArrayCollection();
     }
-
-    /**
+        /**
      * @return Collection|Program[]
      */
     public function getPrograms(): Collection
     {
         return $this->programs;
     }
-
-    /**
+        /**
     * param Program $program
     * @return Category
     */
@@ -55,8 +51,7 @@ class Category
 
         return $this;
     }
-
-    /**
+         /**
      * @param Program $program
      * @return Category
      */
@@ -72,7 +67,7 @@ class Category
          }
 
          return $this;
-    }
+    }   
 
     public function getId(): ?int
     {
