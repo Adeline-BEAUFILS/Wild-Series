@@ -14,9 +14,11 @@ use App\Service\Slugify;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Mailer\MailerInterface;
 use App\Entity\Comment;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 
 /**
  * @Route("/program")
@@ -137,5 +139,24 @@ class ProgramController extends AbstractController
         $this->addFlash('danger', "la série à été supprimée");
 
         return $this->redirectToRoute('program_index');
+    }
+    /**
+     * @Route("/{id}/watchlist", name="program_watchlist", methods={"GET","POST"})
+     */
+    public function addToWatchlist(Request $request, Program $program, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->getUser()->getWatchlist()->contains($program)) {
+            $this->getUser()->removeWatchlist($program);
+        }
+        else {
+            $this->getUser()->addWatchlist($program);
+        }
+
+        $entityManager->flush();
+
+        return $this->json([
+            'isInWatchlist' => $this->getUser()->isInWatchlist($program)
+        ]);
+
     }
 }
