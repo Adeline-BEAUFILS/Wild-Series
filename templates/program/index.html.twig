@@ -4,10 +4,16 @@
 
 {% block body %}
     <h1>Séries</h1>
+    
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button>Search</button>
+    {{ form_end(form) }}
+
     <div class="container-card">
         {% for program in programs %}
             <div class="card">
-                <img style="height: 50vh;width : 100%;" src="{{ program.poster }}" alt="Card image cap">
+                <img style="height: 50vh;width : 100%; margin-top:2.9rem;" src="{{ program.poster }}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{ program.title }}</h5> <a href="{{ path('program_show', {'slug': program.slug}) }}">Voir plus</a></br>
                     {% if is_granted("ROLE_ADMIN") %}

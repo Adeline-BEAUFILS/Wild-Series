@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\SearchProgramType;
 use App\Entity\Program;
 use App\Form\Program1Type;
 use App\Repository\ProgramRepository;
@@ -22,12 +23,24 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ProgramController extends AbstractController
 {
     /**
-     * @Route("/", name="program_index", methods={"GET"})
+     * @Route("/", name="program_index", methods={"GET", "POST"})
      */
-    public function index(ProgramRepository $programRepository): Response
+    public function index(Request $request , ProgramRepository $programRepository): Response
     {
+
+        $form = $this->createForm(SearchProgramType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+        $search = $form->getData()['Recherche'];
+        $programs = $programRepository->findLikeName($search);
+        } else {
+        $programs = $programRepository->findAll();
+        }
+
         return $this->render('program/index.html.twig', [
-            'programs' => $programRepository->findAll(),
+            'programs' => $programs,
+            'form' => $form->createView(),
         ]);
     }
 
