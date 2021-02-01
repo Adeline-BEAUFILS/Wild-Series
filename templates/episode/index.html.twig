@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Episode index{% endblock %}
+
+{% block body %}
+    <h1>Episodes</h1>
+    {% for episode in episodes %}
+    <ul class='episode-index'>
+        <li>
+            <h3> Episode : {{ episode.number }}</h3>  
+        </li>
+        <li>
+            <h3>Titre : {{ episode.title }}</h3>  
+        </li>
+        <li>  
+            <h5> Résumé :</h5>
+            <p>{{ episode.synopsis }}</p>   
+        </li>
+
+        <li>
+            <h3> Série : {{ episode.program.id }}</h3>
+        </li>
+ 
+    </ul>        
+
+                <div class="button">
+                <a href="{{ path('episode_show', {'slug': episode.slug}) }}" class="btn btn-primary">Voir plus</a>
+                <a href="{{ path('episode_edit', {'slug': episode.slug}) }}" class="btn btn-primary">Editer</a>
+                <a href="{{ path('episode_delete', {'id': episode.id} ) }}" class="btn btn-primary">{{ include('episode/_delete_form.html.twig') }}</a>
+
+            </div>
+        </div>
+    </div>  
+    {% endfor %}
+ 
+    <a href="{{ path('episode_new') }}">Ajouter un épisode</a>
+{% endblock %}

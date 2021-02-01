@@ -1,0 +1,10 @@
+{% extends 'layoutEmail.html.twig' %}
+
+{% block body %}
+<body>
+    <h1>Un nouvel épisode : {{ episode.title }} à été crée</h1>
+    <p>Bonjour, le nouvel épisode {{ episode.title }} de la série {{ program.title }} à été crée sur Wild Series</p>
+    <p>Résumé : {{ episode.synopsis }}</p>
+    <a href="{{ path('episode_show', {'slug': episode.slug}) }}" class="btn btn-primary">Voir l'épisode</a>
+</body>
+{% endblock %}

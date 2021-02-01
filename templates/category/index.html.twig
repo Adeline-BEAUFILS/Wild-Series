@@ -1,18 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}All category's{% endblock %}
+{% block title %}Catégories{% endblock %}
 
 {% block body %}
-    <h1>Toutes les catégories ! </h1>
+    <h1>Catégories </h1>
+    <div class="container-category">
     {% for category in categories %}
-        <div>
-        
-        {# Lien vers la fiche de la category: #}
-        <a href="{{ path("category_show", { categoryName: category.name }) }}">{{category.name}}</a>
+        <a href="{{ path("category_show", { categoryName: category.name }) }}" class="btn btn-primary" >{{category.name}}</a>
         </div>
     {% else %}
         Aucune catégorie trouvée.
     {% endfor %}
+    </div>
 
     <p><a href="{{ path('category_new') }}">
         Ajouter une catégorie

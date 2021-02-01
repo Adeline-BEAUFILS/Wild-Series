@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{{% extends 'base.html.twig' %}
 {% block title %}Category #{{ category.id }}{% endblock %}
 
 {% block body %}
 
 <div class="media">
-{% for program in programs %}
+{% for program in category.programs %}
   
   <div class="media-body">
     <p>{{ program.id }}</p>
@@ -12,13 +12,13 @@
     <p>{{ program.summary }}</p>
     <p>Catégorie : {{ program.category.name }}</p>
     {# Lien vers la fiche de la série : #}
-    <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
+    <a href="{{ path("program_show", {'slug': program.slug}) }}">Voir la fiche</a>
   </div>
 {% endfor %}  
 </div>
 
-<a href="{{ path('program_index') }}">
-    Retour à la liste des programmes
+<a href="{{ path('category_index') }}">
+    Retour à la liste des catégories
 </a>
 
 {% endblock %}
