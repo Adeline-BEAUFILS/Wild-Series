@@ -1,39 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Program index{% endblock %}
+{% block title %}Séries{% endblock %}
 
 {% block body %}
-    <h1>Program index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Summary</th>
-                <th>Poster</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h1>Séries</h1>
+    <div class="container-card">
         {% for program in programs %}
-            <tr>
-                <td>{{ program.id }}</td>
-                <td>{{ program.title }}</td>
-                <td>{{ program.summary }}</td>
-                <td><image class="poster" src="{{ program.poster }}"></td>
-                <td>
-                    <a href="{{ path('program_show', {'slug': program.slug}) }}">show</a>
-                    <a href="{{ path('program_edit', {'slug': program.slug}) }}">edit</a>
-                </td>
-            </tr>
+            <div class="card">
+                <img style="height: 50vh;width : 100%;" src="{{ program.poster }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ program.title }}</h5> <a href="{{ path('program_show', {'slug': program.slug}) }}">Voir plus</a></br>
+                    {% if is_granted("ROLE_ADMIN") %}
+                    <a href="{{ path('program_edit', { 'slug': program.slug} ) }}">Éditer</a>
+                    {% endif %}
+                </div>
+            </div>
         {% else %}
             <tr>
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('program_new') }}">Create new</a>
+    </div>
+    <a href="{{ path('program_new') }}" class="btn btn-primary">Create new</a>
 {% endblock %}
