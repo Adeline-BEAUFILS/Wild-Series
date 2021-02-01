@@ -8,27 +8,46 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ episode.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
+                <th>{{'Titre' | trans }}</th>
                 <td>{{ episode.title }}</td>
             </tr>
             <tr>
-                <th>Number</th>
+                <th>{{'Numero' | trans }}</th>
                 <td>{{ episode.number }}</td>
             </tr>
             <tr>
-                <th>Synopsis</th>
+                <th>{{'Synopsis' | trans }}</th>
                 <td>{{ episode.synopsis }}</td>
             </tr>
         </tbody>
     </table>
+    {% for comment in episode.comments %}
+        <tr>
+            <td>{{'Commentaire :' | trans }} {{ comment.comment }}</td></br>
+            <td>{{'Note :' | trans }}{{ comment.rate }}/10</td></br>
+            <td>{{'Auteur :' | trans }} {{ comment.author.email }}</td></br>
+            {% if app.user %}
+                <a href="{{ path('comment_show', {'id': comment.id}) }}">{{'Voir' | trans }}</a>
+                <a href="{{ path('comment_edit', {'id': comment.id}) }}">{{'Modifier' | trans}}</a>
+            {% endif %}
+            </td>
+        </tr>
+        </br>
+    {% endfor %}
 
-    <a href="{{ path('episode_index') }}">back to list</a>
 
-    <a href="{{ path('episode_edit', {'slug': episode.slug}) }}">edit</a>
+
+
+    <div>
+    {% if app.user %}
+     <h4>{{'Ajouter un commentaire' | trans }}</h4>
+     {{ include('comment/_form.html.twig')}}
+    {% endif %}
+    </div>
+    </br>
+    <a href="{{ path('episode_index') }}">{{'Retour' | trans }}}}</a>
+    </br>
+    <a href="{{ path('episode_edit', {'slug': episode.slug}) }}">{{'Modifier' | trans}}</a>
 
     {{ include('episode/_delete_form.html.twig') }}
 {% endblock %}

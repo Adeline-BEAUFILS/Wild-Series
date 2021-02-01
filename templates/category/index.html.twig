@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Catégories{% endblock %}
+{% block title %}{{'Catégories' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Catégories </h1>
+    <h1>{{'Catégories' | trans }} </h1>
     <div class="container-category">
     {% for category in categories %}
         <a href="{{ path("category_show", { categoryName: category.name }) }}" class="" >{{category.name}}</a></br>
@@ -13,10 +13,10 @@
     </div>
 
     <p><a href="{{ path('category_new') }}">
-        Ajouter une catégorie
+        {{'Ajouter une catégorie' | trans}}
     </a></p>
 
     <p><a href="{{ path('app_index') }}">
-        Retour à l'accueil
+        {{"Retour à l'accueil" | trans }}
     </a></p>
 {% endblock %}

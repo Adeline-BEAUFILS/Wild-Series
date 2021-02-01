@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Episode index{% endblock %}
+{% block title %}{{'Episodes' | trans}}{% endblock %}
 
 {% block body %}
-    <h1>Episodes</h1>
+    <h1>{{'Episodes' | trans}}</h1>
      <div class="container-card">
         {% for episode in episodes %}
             <div class="card">
                 <img style="height: 50vh;width : 100%; margin-top:2.9rem;" src="https://cdn.pixabay.com/photo/2017/03/13/17/25/clapper-2140602_960_720.jpg" alt="Card image cap">
                 <div class="card-body">
                 <h4>{{ episode.number }}</h4>
-                    <h5 class="card-title">{{ episode.title }}</h5> <a href="{{ path('episode_show', {'slug': episode.slug}) }}">Voir plus</a></br>
+                    <h5 class="card-title">{{ episode.title }}</h5></br>
                     <p>{{ episode.synopsis }}</p>
                 <h5> {{ episode.program.id }}   </h5> 
                 <div class="button">
-                <a href="{{ path('episode_show', {'slug': episode.slug}) }}" class="">Voir plus</a></br>
-                <a href="{{ path('episode_edit', {'slug': episode.slug}) }}" class="">Editer</a>
+                <a href="{{ path('episode_show', {'slug': episode.slug}) }}" class="">{{'Voir plus' | trans}}</a></br>
+                <a href="{{ path('episode_edit', {'slug': episode.slug}) }}" class="">{{'Editer' | trans}}</a>
                 <a href="{{ path('episode_delete', {'id': episode.id} ) }}" class="">{{ include('episode/_delete_form.html.twig') }}</a>
                 </div>
             </div>
@@ -26,5 +26,5 @@
 
  
  
-    <a href="{{ path('episode_new') }}">Ajouter un épisode</a>
+    <a href="{{ path('episode_new') }}">{{'Ajouter un épisode' | trans}}</a>
 {% endblock %}
