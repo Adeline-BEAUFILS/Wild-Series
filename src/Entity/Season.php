@@ -20,6 +20,12 @@ class Season
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Program::class, inversedBy="seasons")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $program_id;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $number;
@@ -35,13 +41,7 @@ class Season
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=program::class, inversedBy="seasons")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $program;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Episode::class, mappedBy="season")
+     * @ORM\OneToMany(targetEntity=Episode::class, mappedBy="season_id")
      */
     private $episodes;
 
@@ -53,6 +53,18 @@ class Season
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getProgramId(): ?Program
+    {
+        return $this->program_id;
+    }
+
+    public function setProgramId(?Program $program_id): self
+    {
+        $this->program_id = $program_id;
+
+        return $this;
     }
 
     public function getNumber(): ?int
@@ -91,18 +103,6 @@ class Season
         return $this;
     }
 
-    public function getProgram(): ?program
-    {
-        return $this->program;
-    }
-
-    public function setProgram(?program $program): self
-    {
-        $this->program = $program;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Episode[]
      */
@@ -115,7 +115,7 @@ class Season
     {
         if (!$this->episodes->contains($episode)) {
             $this->episodes[] = $episode;
-            $episode->setSeason($this);
+            $episode->setSeasonId($this);
         }
 
         return $this;
@@ -125,8 +125,8 @@ class Season
     {
         if ($this->episodes->removeElement($episode)) {
             // set the owning side to null (unless already changed)
-            if ($episode->getSeason() === $this) {
-                $episode->setSeason(null);
+            if ($episode->getSeasonId() === $this) {
+                $episode->setSeasonId(null);
             }
         }
 

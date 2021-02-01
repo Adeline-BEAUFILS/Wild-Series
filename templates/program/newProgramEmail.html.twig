@@ -1,0 +1,9 @@
+{% extends 'layoutEmail.html.twig' %}
+
+{% block body %}
+<body>
+    <h1>Une nouvelle série : {{ program.title }} à été crée</h1>
+    <p>Bonjour, la nouvelle série {{ program.title }} à été crée sur Wild Series</p>
+    <p>Résumé : {{program.summary }}
+</body>
+{% endblock %}

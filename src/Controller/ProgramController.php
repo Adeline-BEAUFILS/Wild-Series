@@ -2,111 +2,111 @@
 
 namespace App\Controller;
 
-use App\Entity\Season;
-use App\Entity\Episode;
 use App\Entity\Program;
-use App\Entity\Category;
-use App\Form\ProgramType;
+use App\Form\Program1Type;
+use App\Repository\ProgramRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\Slugify;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Mailer\MailerInterface;
+use App\Entity\Comment;
+use Symfony\Component\Mime\Email;
 
 /**
-* @Route("/programs", name="program_")
-*/
-
+ * @Route("/program")
+ */
 class ProgramController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/", name="program_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(ProgramRepository $programRepository): Response
     {
-        $programs = $this->getDoctrine()
-             ->getRepository(Program::class)
-             ->findAll();
-
-        return $this->render('program/index.html.twig',
-            ['programs' => $programs]
-        );
+        return $this->render('program/index.html.twig', [
+            'programs' => $programRepository->findAll(),
+        ]);
     }
 
     /**
-     *  @Route("/new", name="new")
+     * @Route("/new", name="program_new", methods={"GET","POST"})
      */
-    public function new(Request $request) : Response
+    public function new(Request $request, Slugify $slugify, MailerInterface $mailer): Response
     {
         $program = new Program();
-        $form = $this->createForm(ProgramType::class, $program);
+        $form = $this->createForm(Program1Type::class, $program);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $slug = $slugify->generate($program->getTitle());
+            $program->setSlug($slug);
             $entityManager->persist($program);
             $entityManager->flush();
+
+            $email = (new Email())
+                ->from($this->getParameter('mailer_from'))
+                ->to('56f23e496d-5edd50@inbox.mailtrap.io')
+                ->subject('Une nouvelle série vient d\'être publiée !')
+                ->html($this->renderView('program/newProgramEmail.html.twig', ['program' => $program]));
+
+            $mailer->send($email);
+            // [...]
 
             return $this->redirectToRoute('program_index');
         }
 
-        return $this->render('program/new.html.twig', ["form" => $form->createView()]);
+        return $this->render('program/new.html.twig', [
+            'program' => $program,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
-     * @Route("/{programId}", requirements={"id"="\d+"}, methods={"GET"}, name="show")
-     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"programId": "id"}})
+     * @Route("/{slug}", name="program_show", methods={"GET"})
+     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      */
-    public function show(Program $program):Response
+    public function show(Program $program): Response
     {
-        if (!$program) {
-            throw $this->createNotFoundException(
-                'No program with id : '.$id.' found in program\'s table.'
-            );
-        }
-
-        $seasons = $program->getSeasons();
-
         return $this->render('program/show.html.twig', [
             'program' => $program,
-            'seasons' => $seasons,
         ]);
     }
 
     /**
-     * @Route("/{programId}/seasons/{seasonId}", methods={"GET"}, name="season_show")
-     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"programId": "id"}})
-     * @ParamConverter("season", class="App\Entity\Season", options={"mapping": {"seasonId": "id"}})
+     * @Route("/{slug}/edit", name="program_edit", methods={"GET","POST"})
+     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      */
-    public function showSeason(Program $program, Season $season):Response
+    public function edit(Request $request, Program $program): Response
     {
-        $episodes = $season->getEpisodes();
+        $form = $this->createForm(Program1Type::class, $program);
+        $form->handleRequest($request);
 
-        if (!$program) {
-            throw $this->createNotFoundException(
-                'No program with id : '.$id.' found in program\'s table.'
-            );
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('program_index');
         }
 
-        return $this->render('program/season_show.html.twig', [
+        return $this->render('program/edit.html.twig', [
             'program' => $program,
-            'season' => $season,
-            'episodes' => $episodes,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{programId}/seasons/{seasonId}/episodes/{episodeId}", methods={"GET"}, name="season_episode_show")
-     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"programId": "id"}})
-     * @ParamConverter("season", class="App\Entity\Season", options={"mapping": {"seasonId": "id"}})
-     * @ParamConverter("episode", class="App\Entity\Episode", options={"mapping": {"episodeId": "id"}})
+     * @Route("/{id}", name="program_delete", methods={"DELETE"})
      */
-    public function showEpisode(Program $program, Season $season, Episode $episode) {
-        
-        return $this->render('program/episode_show.html.twig', [
-            'season' => $season,
-            'program' => $program,
-            'episode' => $episode,
-        ]);
+    public function delete(Request $request, Program $program): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($program);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('program_index');
     }
 }

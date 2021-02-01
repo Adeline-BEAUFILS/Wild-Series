@@ -1,12 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Liste des catégories {% endblock %}
+{% block title %}Catégories{% endblock %}
 
 {% block body %}
-    <h2>Liste des catégories :</h2>
-        {% for category in categories %}
-                <h4><a href="{{ path('category_show', {'categoryName': category.name})}}">{{ category.name }}</a></h4>
-        {% endfor %}
+    <h1>Catégories </h1>
+    <div class="container-category">
+    {% for category in categories %}
+        <a href="{{ path("category_show", { categoryName: category.name }) }}" class="btn btn-primary" >{{category.name}}</a>
+        </div>
+    {% else %}
+        Aucune catégorie trouvée.
+    {% endfor %}
+    </div>
 
-        <button><a href="{{ path('category_new')}}">Ajouter une Catégorie</a></button>
+    <p><a href="{{ path('category_new') }}">
+        Ajouter une catégorie
+    </a></p>
+
+    <p><a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a></p>
 {% endblock %}
