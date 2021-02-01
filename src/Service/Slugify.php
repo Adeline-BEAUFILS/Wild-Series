@@ -2,8 +2,13 @@
 
 namespace App\Service;
 
-class Slugify
+class Slugify 
 {
+    
+    /**
+     * @param string $slug
+     * @return string
+     */
     public function generate(string $slug): string
     {
         $slug = preg_replace('~[^\pL\d]+~u', '-', $slug);
@@ -15,12 +20,4 @@ class Slugify
        return $slug;
        
     }
-
-    
-
-
-
-
-
-
 }

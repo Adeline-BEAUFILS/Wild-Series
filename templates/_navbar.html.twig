@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg ">
-  <a class="navbar-brand" href="/">Wild-Series</a>
+  <a class="navbar-brand" href="/fr">Wild-Series</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -9,23 +9,34 @@
         <a class="nav-link" href="/"> <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ path('program_index') }}">Series</a>
+        <a class="nav-link" href="{{ path('program_index') }}">{{'Series'| trans}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ path('category_index') }}">Categories</a>
+        <a class="nav-link" href="{{ path('category_index') }}">{{'Catégories'| trans}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ path('episode_index') }}">Episodes</a>
+        <a class="nav-link" href="{{ path('episode_index') }}">{{'Episodes'| trans}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ path('actor_index') }}">Acteurs</a>
+        <a class="nav-link" href="{{ path('actor_index') }}">{{'Acteurs'| trans}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ path('comment_index') }}">Commentaires</a>
+        <a class="nav-link" href="{{ path('comment_index') }}">{{'Commentaires'| trans}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ path('profile') }}">Mon compte</a>
-      </li>  
+        <a class="nav-link" href="{{ path('profile') }}">{{'Mon Compte'| trans}}</a>
+      </li> 
+      <div class="btn-group">
+        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         {{'Language' | trans}}
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="{{ path('app_index', {'_locale':'fr'})}}">Francais</a>
+          <a class="dropdown-item" href="{{ path('app_index', {'_locale':'en'})}}">English</a>
+        </div>
+      </div>
+
+      
     </ul>
   </div>
 </nav>

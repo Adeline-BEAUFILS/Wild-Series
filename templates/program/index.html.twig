@@ -3,21 +3,21 @@
 {% block title %}Séries{% endblock %}
 
 {% block body %}
-    <h1>Séries</h1>
+    <h1>{{ 'Séries' | trans }}</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button>Search</button>
+    <button>{{ 'Search' | trans }}</button>
     {{ form_end(form) }}
 
     <div class="container-card">
         {% for program in programs %}
             <div class="card">
-                <img style="height: 50vh;width : 100%; margin-top:2.9rem;" src="{{ program.poster }}" alt="Card image cap">
+                <img style="height: 50vh;width : 100%; margin-top:7rem;" src="{{ program.poster }}" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">{{ program.title }}</h5> <a href="{{ path('program_show', {'slug': program.slug}) }}">Voir plus</a></br>
+                    <h1 class="card-title">{{ program.title }}</h1> <a class="more" href="{{ path('program_show', {'slug': program.slug}) }}">{{ 'Voir plus' | trans }}</a></br>
                     {% if is_granted("ROLE_ADMIN") %}
-                    <a href="{{ path('program_edit', { 'slug': program.slug} ) }}">Éditer</a>
+                    <a href="{{ path('program_edit', { 'slug': program.slug} ) }}">{{ 'Éditer' | trans }}</a>
                     {% endif %}
                 </div>
             </div>
@@ -27,5 +27,5 @@
             </tr>
         {% endfor %}
     </div>
-    <a href="{{ path('program_new') }}" class="btn btn-primary">Create new</a>
+    <a href="{{ path('program_new') }}" class="btn btn-primary">{{ 'Crée une série' | trans }}</a>
 {% endblock %}

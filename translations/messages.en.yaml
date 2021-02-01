@@ -1,0 +1,42 @@
+Series: Programs
+Catégories: Categories
+Episodes: Episodes
+Acteurs: Actors
+Commentaires: Comments
+'Mon Compte': 'My Account'
+hello_username: 'hello %username%'
+account.logout: logout
+account.login: login
+Saisons: Seasons
+Numéro: Number
+Année: Year
+Description: Description
+'Créer Saison': 'Create Season'
+'Inscrit toi!': 'Sign Up!'
+'S''inscrire': 'Sign Up'
+'Identifie toi': 'identify yourself'
+'Mot de passe': Password
+Language: Language
+'Ajouter une catégorie': 'Add Category'
+'Retour à l''accueil': 'Back home'
+'Voir plus': 'Show more'
+Editer: Update
+'Ajouter un épisode': 'Add episode'
+'Nouvel épisode': 'New episode'
+Retour: Back
+Séries: Programs
+Search: Search
+Éditer: Update
+'Crée une série': 'Create Program'
+'Modifier une série': 'Update program'
+'Nouvelle Série': 'New Program'
+'Crée une nouvelle série new': 'Create new program'
+'Résumé:': 'Summary:'
+'Acteurs:': 'Actors:'
+'Aucun acteur pour cette série': 'No actor found for this program'
+'Saisons:': 'Seasons:'
+'Aucune saison pour cette série': 'No seasons for this program'
+Supprimer: Delete
+Noms: Name
+Modifier: Update
+'Créer acteur': 'Create Actors'
