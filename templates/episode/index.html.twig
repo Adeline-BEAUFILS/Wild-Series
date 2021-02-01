@@ -4,34 +4,27 @@
 
 {% block body %}
     <h1>Episodes</h1>
-    {% for episode in episodes %}
-    <ul class='episode-index'>
-        <li>
-            <h3> Episode : {{ episode.number }}</h3>  
-        </li>
-        <li>
-            <h3>Titre : {{ episode.title }}</h3>  
-        </li>
-        <li>  
-            <h5> Résumé :</h5>
-            <p>{{ episode.synopsis }}</p>   
-        </li>
-
-        <li>
-            <h3> Série : {{ episode.program.id }}</h3>
-        </li>
- 
-    </ul>        
-
+     <div class="container-card">
+        {% for episode in episodes %}
+            <div class="card">
+                <img style="height: 50vh;width : 100%; margin-top:2.9rem;" src="https://cdn.pixabay.com/photo/2017/03/13/17/25/clapper-2140602_960_720.jpg" alt="Card image cap">
+                <div class="card-body">
+                <h4>{{ episode.number }}</h4>
+                    <h5 class="card-title">{{ episode.title }}</h5> <a href="{{ path('episode_show', {'slug': episode.slug}) }}">Voir plus</a></br>
+                    <p>{{ episode.synopsis }}</p>
+                <h5> {{ episode.program.id }}   </h5> 
                 <div class="button">
-                <a href="{{ path('episode_show', {'slug': episode.slug}) }}" class="btn btn-primary">Voir plus</a>
-                <a href="{{ path('episode_edit', {'slug': episode.slug}) }}" class="btn btn-primary">Editer</a>
-                <a href="{{ path('episode_delete', {'id': episode.id} ) }}" class="btn btn-primary">{{ include('episode/_delete_form.html.twig') }}</a>
-
+                <a href="{{ path('episode_show', {'slug': episode.slug}) }}" class="">Voir plus</a></br>
+                <a href="{{ path('episode_edit', {'slug': episode.slug}) }}" class="">Editer</a>
+                <a href="{{ path('episode_delete', {'id': episode.id} ) }}" class="">{{ include('episode/_delete_form.html.twig') }}</a>
+                </div>
             </div>
-        </div>
-    </div>  
-    {% endfor %}
+    </div>
+            
+        {% endfor %}
+    </div>
+
+ 
  
     <a href="{{ path('episode_new') }}">Ajouter un épisode</a>
 {% endblock %}
