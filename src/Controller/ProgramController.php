@@ -16,6 +16,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use App\Entity\Comment;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/program")
@@ -25,7 +26,7 @@ class ProgramController extends AbstractController
     /**
      * @Route("/", name="program_index", methods={"GET", "POST"})
      */
-    public function index(Request $request , ProgramRepository $programRepository): Response
+    public function index( Request $request , ProgramRepository $programRepository): Response
     {
 
         $form = $this->createForm(SearchProgramType::class);
@@ -61,6 +62,9 @@ class ProgramController extends AbstractController
             $entityManager->persist($program);
             $entityManager->flush();
 
+            // Once the form is submitted, valid and the data inserted in database, you can define the success flash message
+            $this->addFlash('success', 'La série à été crée');
+
             $email = (new Email())
                 ->from($this->getParameter('mailer_from'))
                 ->to('56f23e496d-5edd50@inbox.mailtrap.io')
@@ -68,7 +72,7 @@ class ProgramController extends AbstractController
                 ->html($this->renderView('program/newProgramEmail.html.twig', ['program' => $program]));
 
             $mailer->send($email);
-            // [...]
+
 
             return $this->redirectToRoute('program_index');
         }
@@ -107,6 +111,9 @@ class ProgramController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+        // Once the form is submitted, valid and the data inserted in database, you can define the success flash message
+        $this->addFlash('success', 'La série à été modifiée');
+
             return $this->redirectToRoute('program_index');
         }
 
@@ -126,6 +133,8 @@ class ProgramController extends AbstractController
             $entityManager->remove($program);
             $entityManager->flush();
         }
+        // Once the form is submitted, valid and the data inserted in database, you can define the success flash message
+        $this->addFlash('danger', "la série à été supprimée");
 
         return $this->redirectToRoute('program_index');
     }

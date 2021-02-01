@@ -49,6 +49,9 @@ class EpisodeController extends AbstractController
             $entityManager->flush();
             $program = $episode->getProgram();
 
+            // Once the form is submitted, valid and the data inserted in database, you can define the success flash message
+            $this->addFlash('success', "l'épisode à été crée");
+
             $email = (new Email())
                 ->from($this->getParameter('mailer_from'))
                 ->to('56f23e496d-5edd50@inbox.mailtrap.io')
@@ -84,6 +87,8 @@ class EpisodeController extends AbstractController
             $comment->setEpisode($episode);
             $entityManager->persist($comment);
             $entityManager->flush();
+
+
         
 
         }
@@ -111,6 +116,9 @@ class EpisodeController extends AbstractController
             
             $this->getDoctrine()->getManager()->flush();
 
+                    // Once the form is submitted, valid and the data inserted in database, you can define the success flash message
+        $this->addFlash('success', "L'épisode à été modifié");
+
             return $this->redirectToRoute('episode_index');
         }
 
@@ -130,6 +138,9 @@ class EpisodeController extends AbstractController
             $entityManager->remove($episode);
             $entityManager->flush();
         }
+
+        // Once the form is submitted, valid and the data inserted in database, you can define the success flash message
+        $this->addFlash('danger', "l'épisode à été supprimé");
 
         return $this->redirectToRoute('episode_index');
     }
